@@ -1,0 +1,5 @@
+<%= simple_form_for(thing)  do |f| %>
+  <%= f.input :name %>
+  <%= f.input :color if thing == @flower %>
+  <%= f.submit %>
+<% end %>
