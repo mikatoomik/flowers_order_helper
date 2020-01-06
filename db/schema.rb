@@ -10,9 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_01_05_183558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "compositions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "flowers", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "proportions", force: :cascade do |t|
+    t.bigint "composition_id"
+    t.bigint "flower_id"
+    t.integer "stems_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["composition_id"], name: "index_proportions_on_composition_id"
+    t.index ["flower_id"], name: "index_proportions_on_flower_id"
+  end
+
+  create_table "quantities", force: :cascade do |t|
+    t.bigint "composition_id"
+    t.bigint "order_id"
+    t.integer "compositions_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["composition_id"], name: "index_quantities_on_composition_id"
+    t.index ["order_id"], name: "index_quantities_on_order_id"
+  end
 
 end
