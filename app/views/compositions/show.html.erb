@@ -1,1 +1,24 @@
-<%= @composition.name %>
+<%= link_to compositions_path do %>
+  <button  id="back" class="btn btn-success">Back...</button>
+<% end %>
+
+
+<h1><%= @composition.name %></h1>
+    <p>
+    <ul>
+      <% @composition.proportions.each do |compo| %>
+      <li>
+        <%= compo.stems_number %> tiges de <%= compo.flower.name %> <%= compo.flower.color %>
+      </li>
+      <% end %>
+    </ul>
+    </p>
+
+<h2>Add Flowers</h2>
+<p>
+<%= simple_form_for [@composition, @proportion] do |f| %>
+<%= f.input :stems_number, label: "combien de tiges ?" %>
+<%= f.association :flower, collection: Flower.order(:name), label_method: :nameandcolor, value_method: :id, include_blank: false %>
+<%= f.submit "Add flowers", class: "btn btn-success" %>
+<% end %>
+</p>

@@ -1,3 +1,18 @@
-<% @flowers.each do |flower| %>
-<%= flower.name %>-<%= flower.color %>
-<% end %>
+<h1>Liste des fleurs</h1>
+<ol>
+  <% @flowers.each do |flower| %>
+  <li>
+    <%= link_to "#{flower.name} - #{flower.color}", flower_path(flower) %>
+    <%= link_to edit_flower_path(flower), class: "delete-link hidden" do %>
+      <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
+    <% end %>
+    <%= link_to flower_path(flower), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
+      <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
+    <% end %>
+  </li>
+  <% end %>
+</ol>
+
+
+
+<%= link_to 'ajouter une fleur', new_flower_path %> <br>

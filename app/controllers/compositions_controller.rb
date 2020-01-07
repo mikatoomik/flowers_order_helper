@@ -6,6 +6,7 @@ class CompositionsController < ApplicationController
   end
 
   def show
+    @proportion = Proportion.new
   end
 
   def new
