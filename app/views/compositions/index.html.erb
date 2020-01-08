@@ -4,10 +4,23 @@
   <% @compositions.each do |composition| %>
   <li>
     nom : <%= link_to composition.name, composition_path(composition) %>
-      composition :
-      <% composition.proportions.each do |compo| %>
-        <%= compo.stems_number %> tiges de <%= compo.flower.name %> <%= compo.flower.color %>
+    <%= link_to edit_composition_path(composition), class: "delete-link hidden" do %>
+      <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
     <% end %>
+    <%= link_to composition_path(composition), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
+      <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
+    <% end %>
+      composition :
+      <ul>
+        <% composition.proportions.each do |compo| %>
+        <li>
+          <%= compo.stems_number %> tiges de <%= compo.flower.name %> <%= compo.flower.color %>
+
+        </li>
+        <% end %>
+      </ul>
   </li>
   <% end %>
 </ol>
+
+<%= link_to 'ajouter une composition', new_composition_path %> <br>

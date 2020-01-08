@@ -1,0 +1,38 @@
+<%= link_to orders_path do %>
+  <button  id="back" class="btn btn-success">Back...</button>
+<% end %>
+pour le <%= @order.date %> :
+<p>
+<ol>
+<% @order.quantities.each do |item| %>
+  <li>
+  <%= item.compositions_number %> <%= item.composition.name %>
+
+  <%= link_to order_quantity_path(@order, item.id), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
+    <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
+  <% end %>
+  </li>
+<% end %>
+</ol>
+</p>
+
+
+soit les quantités suivantes :
+<p>
+  <ul>
+  <% @cmd.each do |key, value|%>
+    <li>
+        <%= value %> tiges de <%= key %>
+    </li>
+    <% end %>
+  </ul>
+</p>
+
+<h2>Ajouter des Compositions</h2>
+<p>
+<%= simple_form_for [@order, @quantity] do |f| %>
+<%= f.association :composition, collection: Composition.order(:name) %>
+<%= f.input :compositions_number, label: "quelle quantitée ?" %>
+<%= f.submit "Ajouter les compositions", class: "btn btn-success" %>
+<% end %>
+</p>

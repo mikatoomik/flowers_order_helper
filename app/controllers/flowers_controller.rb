@@ -14,18 +14,27 @@ class FlowersController < ApplicationController
 
   def create
     flower = Flower.new(params_flower)
-    flower.save
+    if flower.save
+      redirect_to flowers_path
+    else
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
-    @flower.update(params_flower)
+    if @flower.update(params_flower)
+      redirect_to flowers_path
+    else
+      render :edit
+    end
   end
 
   def destroy
     @flower.destroy
+    redirect_to flowers_path
   end
 
   private

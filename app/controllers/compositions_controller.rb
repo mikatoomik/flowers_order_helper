@@ -15,18 +15,27 @@ class CompositionsController < ApplicationController
 
   def create
     composition = Composition.new(params_composition)
-    composition.save
+    if composition.save
+      redirect_to compositions_path
+    else
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
-    @composition.update(params_composition)
+    if @composition.update(params_composition)
+      redirect_to compositions_path
+    else
+      render :edit
+    end
   end
 
   def destroy
     @composition.destroy
+    redirect_to compositions_path
   end
 
   private

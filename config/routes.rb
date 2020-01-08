@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   resources :compositions do
     resources :proportions
   end
+  resources :orders do
+    resources :quantities
+  end
 end

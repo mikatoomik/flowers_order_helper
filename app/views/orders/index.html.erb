@@ -1,0 +1,21 @@
+<h1>Liste des commandes</h1>
+
+<ol>
+  <% @orders.each do |order| %>
+  <li>
+    Commande du : <%= link_to order.date, order_path(order) %>
+    <%= link_to edit_order_path(order), class: "delete-link hidden" do %>
+      <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
+    <% end %>
+    <%= link_to order_path(order), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
+      <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
+    <% end %>
+      comprenant :
+      <% order.quantities.each do |item| %>
+        <%= item.compositions_number %> <%= item.composition.name %>
+    <% end %>
+  </li>
+  <% end %>
+</ol>
+
+<%= link_to 'ajouter une commande', new_order_path %> <br>
