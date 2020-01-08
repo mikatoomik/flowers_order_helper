@@ -8,7 +8,10 @@
     <ul>
       <% @composition.proportions.each do |compo| %>
       <li>
-        <%= compo.stems_number %> tiges de <%= compo.flower.name %> <%= compo.flower.color %>
+        <%= pluralize(compo.stems_number, 'tige') %> de <%= compo.flower.name %> <%= compo.flower.color %>
+        <%= link_to composition_proportion_path(@composition, compo.id), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
+          <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
+        <% end %>
       </li>
       <% end %>
     </ul>

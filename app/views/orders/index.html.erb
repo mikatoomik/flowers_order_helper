@@ -11,11 +11,19 @@
       <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
     <% end %>
       comprenant :
-      <% order.quantities.each do |item| %>
-        <%= item.compositions_number %> <%= item.composition.name %>
-    <% end %>
+      <ul>
+        <% order.quantities.each do |item| %>
+          <li>
+            <% t = item.composition.name.split %>
+            <% first_word = t.shift %>
+            <% rest_sentence = t.join(" ") %>
+            <%= pluralize(item.compositions_number, first_word) %> <%= rest_sentence %>
+          </li>
+      <% end %>
+      </ul>
   </li>
   <% end %>
 </ol>
 
 <%= link_to 'ajouter une commande', new_order_path %> <br>
+

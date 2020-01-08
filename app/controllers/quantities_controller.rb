@@ -1,5 +1,4 @@
 class QuantitiesController < ApplicationController
-  before_action :set_quantity, only: [:edit, :update, :destroy]
 
   def create
       @quantity = Quantity.new(params_quantity)
@@ -9,26 +8,14 @@ class QuantitiesController < ApplicationController
       redirect_to order_path(@order)
   end
 
-  def edit
-  end
-
-  def update
-    if @quantity.update(params_quantity)
-      redirect_to order_path(@quantity.order_id)
-    else
-      render :edit
-    end
-  end
 
   def destroy
+    @quantity = Quantity.find(params[:id])
     @quantity.destroy
     redirect_to order_path(@quantity.order_id)
   end
 
 private
-  def set_quantity
-    @quantity = Quantity.find(params[:id])
-  end
 
   def params_quantity
     params.require(:quantity).permit(:compositions_number, :composition_id)

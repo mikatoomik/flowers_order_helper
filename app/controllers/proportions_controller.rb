@@ -8,6 +8,12 @@ class ProportionsController < ApplicationController
       redirect_to composition_path(@composition)
   end
 
+  def destroy
+    @proportion = Proportion.find(params[:id])
+    @proportion.destroy
+    redirect_to composition_path(@proportion.composition_id)
+  end
+
 private
   def params_proportion
     params.require(:proportion).permit(:stems_number, :flower_id)

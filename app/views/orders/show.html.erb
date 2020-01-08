@@ -3,17 +3,19 @@
 <% end %>
 pour le <%= @order.date %> :
 <p>
-<ol>
+<ul>
 <% @order.quantities.each do |item| %>
   <li>
-  <%= item.compositions_number %> <%= item.composition.name %>
-
-  <%= link_to order_quantity_path(@order, item.id), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
-    <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
-  <% end %>
+    <% t = item.composition.name.split %>
+    <% first_word = t.shift %>
+    <% rest_sentence = t.join(" ") %>
+    <%= pluralize(item.compositions_number, first_word) %> <%= rest_sentence %>
+    <%= link_to order_quantity_path(@order, item.id), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
+      <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
+    <% end %>
   </li>
 <% end %>
-</ol>
+</ul>
 </p>
 
 
@@ -22,7 +24,7 @@ soit les quantités suivantes :
   <ul>
   <% @cmd.each do |key, value|%>
     <li>
-        <%= value %> tiges de <%= key %>
+        <%= pluralize(value, 'tige') %> de <%= key %>
     </li>
     <% end %>
   </ul>
