@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @orders = Order.all
+    @orders = Order.where("user_id = ?", current_user)
   end
 
   def show
@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(params_order)
+    @order.user = current_user
     if @order.save
       redirect_to orders_path
     else
@@ -59,6 +60,6 @@ class OrdersController < ApplicationController
   end
 
   def params_order
-    params.require(:order).permit(:date)
+    params.require(:order).permit(:date, :name)
   end
 end
