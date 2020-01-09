@@ -8,23 +8,16 @@ class OrdersController < ApplicationController
   def show
     @quantity = Quantity.new
     @cmd = {}
-    @order.quantities.each do |quantity|
-      quantity.composition.flowers.each do |flower|
-        nb = 0
-        label = "#{flower.name} #{flower.color}"
-        prop = flower.proportions.find_by(composition_id: quantity.composition.id).stems_number
-        nb += prop * quantity.compositions_number
-        if @cmd.key?(label)
-          @cmd[label] += nb
-        else
-          @cmd[label] = nb
-        end
-      end
-    end
+    calcul_quantity
   end
 
   def show_by_date
     @orders = Order.where("user_id = ? AND date = ?", current_user, params[:format])
+    @cmd = {}
+    @orders.each do |order|
+      @order = order
+      calcul_quantity
+    end
   end
 
   def new
@@ -58,6 +51,22 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def calcul_quantity
+    @order.quantities.each do |quantity|
+      quantity.composition.flowers.each do |flower|
+        nb = 0
+        label = "#{flower.name} #{flower.color}"
+        prop = flower.proportions.find_by(composition_id: quantity.composition.id).stems_number
+        nb += prop * quantity.compositions_number
+        if @cmd.key?(label)
+          @cmd[label] += nb
+        else
+          @cmd[label] = nb
+        end
+      end
+    end
+  end
 
   def set_order
     @order = Order.find(params[:id])

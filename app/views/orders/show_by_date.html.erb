@@ -1,3 +1,15 @@
+
+pour le <%= @orders.first.date %> :<br>
 <% @orders.each do |order| %>
-<%= order.name %><br>
+  <%= order.name %>
 <% end %>
+<br>soit les quantités suivantes :
+<p>
+  <ul>
+  <% @cmd.each do |key, value|%>
+    <li>
+        <%= pluralize(value, 'tige') %> de <%= key %>
+    </li>
+    <% end %>
+  </ul>
+</p>
