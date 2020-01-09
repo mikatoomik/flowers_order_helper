@@ -28,8 +28,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    order = Order.new(params_order)
-    if order.save
+    @order = Order.new(params_order)
+    if @order.save
       redirect_to orders_path
     else
       render :new

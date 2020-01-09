@@ -14,8 +14,8 @@ class CompositionsController < ApplicationController
   end
 
   def create
-    composition = Composition.new(params_composition)
-    if composition.save
+    @composition = Composition.new(params_composition)
+    if @composition.save
       redirect_to compositions_path
     else
       render :new

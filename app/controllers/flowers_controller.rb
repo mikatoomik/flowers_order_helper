@@ -13,8 +13,8 @@ class FlowersController < ApplicationController
   end
 
   def create
-    flower = Flower.new(params_flower)
-    if flower.save
+    @flower = Flower.new(params_flower)
+    if @flower.save
       redirect_to flowers_path
     else
       render :new
