@@ -23,6 +23,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def show_by_date
+    @orders = Order.where("user_id = ? AND date = ?", current_user, params[:format])
+  end
+
   def new
     @order = Order.new
   end

@@ -3,7 +3,7 @@
 <ol>
   <% @orders.each do |order| %>
   <li>
-    Commande <%= order.name %> du : <%= link_to order.date, order_path(order) %>
+    Commande <%= link_to order.name, order_path(order) %> du : <%= link_to order.date, show_by_date_orders_path(order.date) %>
     <%= link_to edit_order_path(order), class: "delete-link hidden" do %>
       <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
     <% end %>

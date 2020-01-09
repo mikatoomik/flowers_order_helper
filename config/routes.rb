@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   end
   resources :orders do
     resources :quantities
+    collection do
+      get 'show_by_date'
+    end
   end
 end
