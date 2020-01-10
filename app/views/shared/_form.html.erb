@@ -1,6 +1,7 @@
-  <%= simple_form_for(thing)  do |t| %>
-      <%= t.input :name %>
-      <%= t.input :color if thing == @flower %>
-      <%= t.input :date, html5: true if thing == @order %>
-      <%= t.submit %>
+  <%= simple_form_for(thing)  do |f| %>
+      <%= f.input :name %>
+      <%= f.input :color if thing == @flower %>
+      <%= f.input :photo, as: :file if thing == @flower %>
+      <%= f.input :date, html5: true if thing == @order %>
+      <%= f.submit %>
   <% end %>

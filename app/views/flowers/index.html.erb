@@ -2,6 +2,7 @@
 <ol>
   <% @flowers.each do |flower| %>
   <li>
+    <%= cl_image_tag flower.photo.key, height: 100, width: 100, crop: :fill %>
     <%= link_to "#{flower.name} - #{flower.color}", flower_path(flower) %>
     <%= link_to edit_flower_path(flower), class: "delete-link hidden" do %>
       <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
