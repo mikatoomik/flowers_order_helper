@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :init_cmd, only: [:show, :show_by_date]
 
   def index
     @orders = Order.where("user_id = ?", current_user)
@@ -7,14 +8,14 @@ class OrdersController < ApplicationController
 
   def show
     @quantity = Quantity.new
-    @cmd = {}
+    @cmd_detail = {}
     calcul_quantity
   end
 
   def show_by_date
     @orders = Order.where("user_id = ? AND date = ?", current_user, params[:format])
-    @cmd = {}
     @orders.each do |order|
+      @cmd_detail = {}
       @order = order
       calcul_quantity
     end
@@ -52,6 +53,11 @@ class OrdersController < ApplicationController
 
   private
 
+  def init_cmd
+    @cmd_gal = {}
+    @group = {}
+  end
+
   def calcul_quantity
     @order.quantities.each do |quantity|
       quantity.composition.flowers.each do |flower|
@@ -59,13 +65,19 @@ class OrdersController < ApplicationController
         label = "#{flower.name} #{flower.color}"
         prop = flower.proportions.find_by(composition_id: quantity.composition.id).stems_number
         nb += prop * quantity.compositions_number
-        if @cmd.key?(label)
-          @cmd[label] += nb
+        if @cmd_gal.key?(label)
+          @cmd_gal[label] += nb
         else
-          @cmd[label] = nb
+          @cmd_gal[label] = nb
+        end
+        if @cmd_detail.key?(label)
+          @cmd_detail[label] += nb
+        else
+          @cmd_detail[label] = nb
         end
       end
     end
+    @group[@order.name] = @cmd_detail
   end
 
   def set_order

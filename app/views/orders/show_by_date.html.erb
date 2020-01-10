@@ -1,14 +1,27 @@
+<%= link_to orders_path do %>
+  <button  id="back" class="btn btn-success">Back...</button>
+<% end %>
 
 pour le <%= @orders.first.date %> :<br>
+Nous avons les commandes suivantes:
 <% @orders.each do |order| %>
-  <%= order.name %>
+  <%= order.name %> ,
 <% end %>
 <br>soit les quantités suivantes :
 <p>
   <ul>
-  <% @cmd.each do |key, value|%>
+  <% @cmd_gal.each do |key, value|%>
     <li>
-        <%= pluralize(value, 'tige') %> de <%= key %>
+      <%= pluralize(value, 'tige') %> de <%= key %>
+        <% if  @group.count > 1 %>
+          <ul>
+            <% @group.each do |k,v| %>
+              <li>
+                dont <%= @group.dig(k, key) %> pour <%= k %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
     </li>
     <% end %>
   </ul>

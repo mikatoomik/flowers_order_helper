@@ -22,7 +22,7 @@ pour le <%= @order.date %> :
 soit les quantités suivantes :
 <p>
   <ul>
-  <% @cmd.each do |key, value|%>
+  <% @cmd_gal.each do |key, value|%>
     <li>
         <%= pluralize(value, 'tige') %> de <%= key %>
     </li>
