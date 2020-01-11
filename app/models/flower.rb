@@ -8,3 +8,4 @@ class Flower < ApplicationRecord
     "#{self.name} #{self.color}"
   end
 end
+

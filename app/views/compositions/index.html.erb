@@ -14,7 +14,7 @@
       <ul>
         <% composition.proportions.each do |compo| %>
         <li>
-          <%= pluralize(compo.stems_number, 'tige') %> de <%= compo.flower.name %> <%= compo.flower.color %>
+          <%= pluralize(compo.stems_number, 'tige') %> de <%= compo.flower.name %> <%= compo.flower.color %> <%= cl_image_tag compo.flower.photo.key, class: "avatar" %>
         </li>
         <% end %>
       </ul>

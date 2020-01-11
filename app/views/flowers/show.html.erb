@@ -1,1 +1,9 @@
+<h2>Détails de <%= @flower.name %></h2>
+
 <%= cl_image_tag @flower.photo.key %> - <%= @flower.name %>-<%= @flower.color %>
+        <%= link_to edit_flower_path(@flower), class: "delete-link hidden" do %>
+          <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
+        <% end %>
+        <%= link_to flower_path(@flower), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
+          <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
+        <% end %>
