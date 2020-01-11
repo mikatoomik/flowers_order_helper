@@ -1,18 +1,22 @@
 <h1>Liste des fleurs</h1>
-<ol>
-  <% @flowers.each do |flower| %>
-  <li>
-    <%= cl_image_tag flower.photo.key, height: 100, width: 100, crop: :fill %>
-    <%= link_to "#{flower.name} - #{flower.color}", flower_path(flower) %>
-    <%= link_to edit_flower_path(flower), class: "delete-link hidden" do %>
-      <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
+<div class="card_container">
+  <div class="cards d-flex flex-wrap">
+    <% @flowers.each do |flower| %>
+    <div class="card m-2" style="width: 160px; height: 160px">
+      <%= cl_image_tag flower.photo.key, class: "card-img-top mw-100" %>
+      <div class="card-img-overlay align-items-end">
+        <%= link_to "#{flower.name} - #{flower.color}", flower_path(flower), class: "text-muted" %>
+        <%= link_to edit_flower_path(flower), class: "delete-link hidden" do %>
+          <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
+        <% end %>
+        <%= link_to flower_path(flower), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
+          <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
+        <% end %>
+      </div>
+      </div>
     <% end %>
-    <%= link_to flower_path(flower), method: 'DELETE', data: {confirm: "Are you sure?"}, class: "delete-link hidden" do %>
-      <button id="delete-btn" class="btn btn-tag"><i class="far fa-times-circle"></i></button>
-    <% end %>
-  </li>
-  <% end %>
-</ol>
+  </div>
+</div>
 
 
 
