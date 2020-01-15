@@ -32,9 +32,11 @@ soit les quantités suivantes :
 
 <h2>Ajouter des Compositions</h2>
 <p>
-<%= simple_form_for [@order, @quantity] do |f| %>
-<%= f.association :composition, collection: Composition.order(:name) %>
-<%= f.input :compositions_number, label: "quelle quantitée ?" %>
+<%= simple_form_for @composition do |f| %>
+<%= f.input :name %>
+<%= f.simple_fields_for @quantity do |q| %>
+<%= q.input :compositions_number, label: "quelle quantitée ?" %>
+<% end %>
 <%= f.submit "Ajouter les compositions", class: "btn btn-success" %>
 <% end %>
 </p>

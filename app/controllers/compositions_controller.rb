@@ -16,6 +16,7 @@ class CompositionsController < ApplicationController
   def create
     @composition = Composition.new(params_composition)
     if @composition.save
+      raise
       redirect_to compositions_path
     else
       render :new
@@ -45,6 +46,6 @@ class CompositionsController < ApplicationController
   end
 
   def params_composition
-    params.require(:composition).permit(:name, :color)
+    params.require(:composition).permit(:name, quantity_attributes: [:compositions_number])
   end
 end

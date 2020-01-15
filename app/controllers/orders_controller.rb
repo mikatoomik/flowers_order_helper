@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
 
   def show
     @quantity = Quantity.new
+    @composition = Composition.new
     @cmd_detail = {}
     calcul_quantity
   end
@@ -29,7 +30,7 @@ class OrdersController < ApplicationController
     @order = Order.new(params_order)
     @order.user = current_user
     if @order.save
-      redirect_to orders_path
+      redirect_to order_path(@order)
     else
       render :new
     end
