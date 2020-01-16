@@ -7,8 +7,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @quantity = Quantity.new
     @composition = Composition.new
+    @composition.quantities.build
     @cmd_detail = {}
     calcul_quantity
   end

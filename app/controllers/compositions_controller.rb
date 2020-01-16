@@ -19,11 +19,10 @@ class CompositionsController < ApplicationController
     @order = Order.find(params[:order])
     @composition.name = "#{@composition.model} #{@order.name}"
     if @composition.save
-      @quantity = Quantity.new
-      @quantity.compositions_number = params[:compositions_number]
+      @quantity.compositions_number = params[:quantities_attributes]
+            raise
       @quantity.composition = @composition
       @quantity.order = @order
-      raise
       @quantity.save
       redirect_to composition_path(@composition)
     else
@@ -54,7 +53,7 @@ class CompositionsController < ApplicationController
   end
 
   def params_composition
-    params.require(:composition).permit(:name, :model, quantities_attributes: [:compositions_number []])
+    params.require(:composition).permit(:name, :model, quantities_attributes: [compositions_number: []])
   end
 
 end
