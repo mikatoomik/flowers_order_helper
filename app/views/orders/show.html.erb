@@ -33,7 +33,8 @@ soit les quantités suivantes :
 <h2>Ajouter des Compositions</h2>
 <p>
 <%= simple_form_for @composition do |f| %>
-<%= f.input :name %>
+<%= f.input :model %>
+<%= hidden_field_tag :order, params[:id] %>
 <%= f.simple_fields_for @quantity do |q| %>
 <%= q.input :compositions_number, label: "quelle quantitée ?" %>
 <% end %>
