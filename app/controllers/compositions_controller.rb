@@ -18,9 +18,9 @@ class CompositionsController < ApplicationController
     @composition = Composition.new(params_composition)
     @order = Order.find(params[:order])
     @composition.name = "#{@composition.model} #{@order.name}"
+    raise
     if @composition.save
-      @quantity.compositions_number = params[:quantities_attributes]
-            raise
+      @quantity = Quantity.new(params_composition)
       @quantity.composition = @composition
       @quantity.order = @order
       @quantity.save
