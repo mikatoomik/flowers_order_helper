@@ -86,6 +86,6 @@ class OrdersController < ApplicationController
   end
 
   def params_order
-    params.require(:order).permit(:date, :name)
+    params.require(:order).permit(:date, :name, :theme)
   end
 end
