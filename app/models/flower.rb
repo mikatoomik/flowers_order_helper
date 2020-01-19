@@ -3,9 +3,8 @@ class Flower < ApplicationRecord
   has_one_attached :photo
 
   validates :name, presence: true
-
-  def nameandcolor
-    "#{self.name} #{self.color}"
+  def label_fl
+    "#{self.name} #{self.color} #{self.photo.key}"
   end
 end
 
