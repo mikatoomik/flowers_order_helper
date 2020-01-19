@@ -4,8 +4,8 @@
       <%= f.input :theme,
       as: :check_boxes,
       collection: Flower.order(:color),
-      label_method: :label_fl, class: "card-flower",
+      label_method: lambda { |flower| "#{cl_image_tag flower.photo.key , class: "fl_label" }<br> #{flower.name} #{flower.color}".html_safe},
       wrapper: :vertical_collection_inline,
-      include_hidden: false%>
+      include_hidden: false %>
       <%= f.submit %>
   <% end %>
