@@ -4,7 +4,11 @@
   <% @orders.each do |order| %>
   <li>
     Commande <%= link_to order.name, order_path(order) %> du : <%= link_to order.date, show_by_date_orders_path(order.date) %>
-    theme : <%= order.theme %>
+    theme :
+      <% order.theme.each do |id| %>
+        <% @flower = Flower.find(id) %>
+        <%= @flower.name %><%= cl_image_tag @flower.photo.key, class: "avatar" %>
+      <% end %>
     <%= link_to edit_order_path(order), class: "delete-link hidden" do %>
       <button id="edit-btn" class="btn btn-tag"><i class="far fa-edit"></i></button>
     <% end %>

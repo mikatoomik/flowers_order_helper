@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(params_order)
     @order.user = current_user
+    @order.theme = @order.theme.map { |id| id.to_i }
     if @order.save
       redirect_to order_path(@order)
     else
@@ -86,6 +87,6 @@ class OrdersController < ApplicationController
   end
 
   def params_order
-    params.require(:order).permit(:date, :name, :theme)
+    params.require(:order).permit(:date, :name, :theme => [])
   end
 end
