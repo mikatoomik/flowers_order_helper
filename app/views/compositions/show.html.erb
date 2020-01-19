@@ -4,6 +4,15 @@
 
 
 <h1><%= @composition.name %></h1>
+<h6>Ajouter des fleurs</h6>
+<p>
+<%= simple_form_for [@composition, @proportion] do |f| %>
+<% @flowers = Flower.where(id: @composition.quantities.first.order.theme) %>
+<%= f.association :flower, as: :radio_buttons, collection: @flowers, label_method: lambda { |flower| cl_image_tag flower.photo.key, class: "avatar-large" }, wrapper: :vertical_collection_inline, value_method: :id, include_blank: false %>
+<%= f.input :stems_number, label: "combien de tiges ?" %>
+<%= f.submit "Ajouter flowers", class: "btn btn-success" %>
+<% end %>
+</p>
     <p>
     <ul>
       <% @composition.proportions.each do |compo| %>
@@ -17,14 +26,6 @@
     </ul>
     </p>
 
-<h2>Add Flowers</h2>
-<p>
-<%= simple_form_for [@composition, @proportion] do |f| %>
-<%= f.association :flower, collection: Flower.order(:name), label_method: :nameandcolor, value_method: :id, include_blank: false %>
-<%= f.input :stems_number, label: "combien de tiges ?" %>
-<%= f.submit "Ajouter flowers", class: "btn btn-success" %>
-<% end %>
-</p>
 
 <%= link_to order_path(@composition.quantities.first.order) do %>
   <button  id="compo_complete" class="btn btn-primary">composition complète</button>
