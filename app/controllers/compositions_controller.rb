@@ -18,12 +18,10 @@ class CompositionsController < ApplicationController
     @composition = Composition.new(params_composition)
     @order = Order.find(params[:order])
     @composition.name = "#{@composition.model} #{@order.name}"
-    raise
+    @composition.quantities[0].compositions_number = params[:composition][:quantities_attributes]["0"][:compositions_number].to_i
+    @composition.quantities[0].order = @order
+    @composition.quantities[0].composition = @composition
     if @composition.save
-      @quantity = Quantity.new(params_composition)
-      @quantity.composition = @composition
-      @quantity.order = @order
-      @quantity.save
       redirect_to composition_path(@composition)
     else
       render :new
