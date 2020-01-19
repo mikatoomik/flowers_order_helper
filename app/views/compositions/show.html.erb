@@ -22,6 +22,10 @@
 <%= simple_form_for [@composition, @proportion] do |f| %>
 <%= f.association :flower, collection: Flower.order(:name), label_method: :nameandcolor, value_method: :id, include_blank: false %>
 <%= f.input :stems_number, label: "combien de tiges ?" %>
-<%= f.submit "Add flowers", class: "btn btn-success" %>
+<%= f.submit "Ajouter flowers", class: "btn btn-success" %>
 <% end %>
 </p>
+
+<%= link_to order_path(@composition.quantities.first.order) do %>
+  <button  id="compo_complete" class="btn btn-primary">composition complète</button>
+<% end %>
