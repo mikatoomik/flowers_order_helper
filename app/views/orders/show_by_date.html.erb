@@ -16,9 +16,11 @@ Nous avons les commandes suivantes:
         <% if  @group.count > 1 %>
           <ul>
             <% @group.each do |k,v| %>
-              <li>
-                dont <%= @group.dig(k, key) %> pour <%= k %>
-              </li>
+              <% if @group.dig(k, key) %>
+                <li>
+                <%= @group.dig(k, key) %> pour <%= k %>
+                </li>
+              <% end %>
             <% end %>
           </ul>
         <% end %>

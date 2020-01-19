@@ -1,7 +1,19 @@
-<%= link_to orders_path do %>
-  <button  id="back" class="btn btn-success">Back...</button>
+<h2>Commande <%= @order.name %></h2>
+<h6>pour le <%= @order.date %> :</h6>
+
+
+<h4>Ajouter des Compositions</h4>
+<p>
+<%= simple_form_for @composition do |f| %>
+<%= f.input :model %>
+<%= hidden_field_tag :order, params[:id] %>
+<%= f.simple_fields_for :quantities do |q| %>
+<%= q.input :compositions_number, label: "quelle quantitée ?" %>
 <% end %>
-pour le <%= @order.date %> :
+<%= f.submit "Ajouter les compositions", class: "btn btn-success" %>
+<% end %>
+</p>
+
 <p>
 <ul>
 <% @order.quantities.each do |item| %>
@@ -19,7 +31,7 @@ pour le <%= @order.date %> :
 </p>
 
 
-soit les quantités suivantes :
+soit les quantités de fleurs suivantes :
 <p>
   <ul>
   <% @cmd_gal.each do |key, value|%>
@@ -30,11 +42,7 @@ soit les quantités suivantes :
   </ul>
 </p>
 
-<h2>Ajouter des Compositions</h2>
-<p>
-<%= simple_form_for [@order, @quantity] do |f| %>
-<%= f.association :composition, collection: Composition.order(:name) %>
-<%= f.input :compositions_number, label: "quelle quantitée ?" %>
-<%= f.submit "Ajouter les compositions", class: "btn btn-success" %>
+
+<%= link_to show_by_date_orders_path(@order.date) do %>
+  <button class="btn btn-primary">commande complète</button>
 <% end %>
-</p>

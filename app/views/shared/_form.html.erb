@@ -3,5 +3,6 @@
       <%= f.input :color if thing == @flower %>
       <%= f.input :photo, as: :file if thing == @flower %>
       <%= f.input :date, html5: true if thing == @order %>
+      <%= f.input :theme, as: :check_boxes, collection: Flower.order(:name), label_method: lambda { |flower| cl_image_tag flower.photo.key, class: "avatar-large" }, wrapper: :vertical_collection_inline, include_hidden: false if thing == @order %>
       <%= f.submit %>
   <% end %>

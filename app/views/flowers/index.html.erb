@@ -4,10 +4,11 @@
   <div class="cards d-flex flex-wrap">
     <% @flowers.each do |flower| %>
     <div class="card card-flower" style="width: 120px; height: 120px">
-      <div class="card-text">
         <%= link_to flower_path(flower) do %>
           <%= cl_image_tag flower.photo.key, class: "card-img-top" %>
         <% end %>
+      <div class="card-text overlay_fl">
+        <%= flower.name %> <%= flower.color %>
       </div>
       </div>
     <% end %>

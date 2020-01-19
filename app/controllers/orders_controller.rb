@@ -7,7 +7,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @quantity = Quantity.new
+    @composition = Composition.new
+    @composition.quantities.build
     @cmd_detail = {}
     calcul_quantity
   end
@@ -28,8 +29,9 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(params_order)
     @order.user = current_user
+    @order.theme = @order.theme.map { |id| id.to_i }
     if @order.save
-      redirect_to orders_path
+      redirect_to order_path(@order)
     else
       render :new
     end
@@ -85,6 +87,6 @@ class OrdersController < ApplicationController
   end
 
   def params_order
-    params.require(:order).permit(:date, :name)
+    params.require(:order).permit(:date, :name, :theme => [])
   end
 end
