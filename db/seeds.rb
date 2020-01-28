@@ -2,6 +2,8 @@ require "open-uri"
 require 'nokogiri'
 
 Flower.delete_all
+Order.delete_all
+Composition.delete_all
 puts "clean db"
 
 i = 1
